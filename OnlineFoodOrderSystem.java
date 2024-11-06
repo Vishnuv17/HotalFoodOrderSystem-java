@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class OnlineFoodOrderSystem extends JFrame implements ActionListener ,Runnable {
     private CardLayout cardLayout;
@@ -8,7 +10,7 @@ public class OnlineFoodOrderSystem extends JFrame implements ActionListener ,Run
     private JTextField nameField, phoneNumberField, addressField, emailField;
     public Font tf,lf,txf;
     Color panelColor ;
-    ImageIcon veg,nveg,Fastfood,jui,Icecream,Sweet,greenIcon,anim;
+    ImageIcon veg,nveg,Fastfood,jui,Icecream,Sweet,greenIcon,anim,payment;
     JButton nextButton,vegb,nvegb,Fastfoodb,juib,Icecreamb,Sweetb,confirmPaymentButton;
     JButton vegb1,vegb2,vegb3,vegb4,vegb5,vegb6;
     JButton nvegb1,nvegb2,nvegb3,nvegb4,nvegb5,nvegb6;
@@ -24,7 +26,7 @@ public class OnlineFoodOrderSystem extends JFrame implements ActionListener ,Run
     JLabel vegprice1,vegprice2,vegprice3,vegprice4,vegprice5,vegprice6,nvegprice1,nvegprice2,nvegprice3,nvegprice4,nvegprice5,nvegprice6,
             ffprice1,ffprice2,ffprice3,ffprice4,ffprice5,ffprice6,juiceprice1,juiceprice2,juiceprice3,juiceprice4,juiceprice5,juiceprice6,
             icecreamprice1,icecreamprice2,icecreamprice3,icecreamprice4,icecreamprice5,icecreamprice6,
-            sweetprice1,sweetprice2,sweetprice3,sweetprice4,sweetprice5,sweetprice6;
+            sweetprice1,sweetprice2,sweetprice3,sweetprice4,sweetprice5,sweetprice6,paymentl;
 
     ImageIcon veg1,veg2,veg3,veg4,veg5,veg6,nveg1,nveg2,nveg3,nveg4,nveg5,nveg6,
             ff1,ff2,ff3,ff4,ff5,ff6,juice1,juice2,juice3,juice4,juice5,juice6,
@@ -48,7 +50,7 @@ public class OnlineFoodOrderSystem extends JFrame implements ActionListener ,Run
     // You can add more fields for menu items and payment details as needed
 
     public OnlineFoodOrderSystem() {
-        setTitle("Online Food Order System");
+        setTitle("7th Table Food Order System");
         setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -348,7 +350,7 @@ public class OnlineFoodOrderSystem extends JFrame implements ActionListener ,Run
         vegb3.addActionListener(this);
         vegb3.setBounds(450, 20, 150, 150);
         vegcb3=new JCheckBox("PAROTTA");
-        vegcb3.setBounds(490,175,150,20);
+        vegcb3.setBounds(490,175,140,20);
         vegcb3.setBackground(panelColor);
         vegcb3.setForeground(Color.WHITE);
         vegprice3=new JLabel("Price : $20");
@@ -1515,15 +1517,22 @@ public class OnlineFoodOrderSystem extends JFrame implements ActionListener ,Run
         paymentdetails.setFont(txf);
         paymentdetails.setEditable(false);
         JScrollPane scrollPane=new JScrollPane(paymentdetails);
-        scrollPane.setBounds(20,20,840,300);
+        scrollPane.setBounds(20,20,600,300);
         panel.add(scrollPane);
 
+        payment = new ImageIcon("D:\\Food Images\\payment.jpg");
+        Image img1 = payment.getImage();
+        img1= img1.getScaledInstance(240, 240, Image.SCALE_SMOOTH);
+        payment = new ImageIcon(img1);
+        paymentl=new JLabel(payment);
+        paymentl.setBounds(633,50,240,240);
+        panel.add(paymentl);
 
         confirmPaymentButton = new JButton("Confirm Payment");
         confirmPaymentButton.setForeground(Color.WHITE);
         confirmPaymentButton.setBackground(Color.BLUE);
         confirmPaymentButton.addActionListener(this);
-        confirmPaymentButton.setBounds(600,350,180,50);
+        confirmPaymentButton.setBounds(500,390,180,50);
         panel.add(confirmPaymentButton);
 
 
@@ -1984,8 +1993,14 @@ public class OnlineFoodOrderSystem extends JFrame implements ActionListener ,Run
             f.add(scrollPane);
             f.setSize(600,330);
             f.setVisible(true);
-
-
+            try {
+                FileWriter writer = new FileWriter("D:\\loozer\\"+nameField.getText()+".txt");
+                writer.write(sb.toString());
+                writer.close();
+                System.out.println("Text successfully written to the file.");
+            } catch (IOException ee) {
+                ee.printStackTrace();
+            }
         }
         String command = e.getActionCommand();
 
