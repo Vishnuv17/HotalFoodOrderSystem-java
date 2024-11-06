@@ -1,4 +1,7 @@
 # javaprojects
+The system allows users to select from a variety of food items, customize their orders, and receive real-time price calculation to create using Java Swing Concept
+
+
 1. open the java file
 2. find the foods path in java code
 3. you ensure food images path and program food path is same
